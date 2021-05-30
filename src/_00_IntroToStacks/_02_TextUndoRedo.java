@@ -2,13 +2,15 @@ package _00_IntroToStacks;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class _02_TextUndoRedo implements KeyListener {
-    /* 
+
+	/* 
      * Create a JFrame with a JPanel and a JLabel.
      * 
      * Every time a key is pressed, add that character to the JLabel. It should
@@ -27,6 +29,9 @@ public class _02_TextUndoRedo implements KeyListener {
 	JPanel panel;
 	JLabel label;
 	
+	Stack<String> deleted;
+	String text = "";
+	
 	public static void main(String[] args) {
 		_02_TextUndoRedo test = new _02_TextUndoRedo();
 		test.run();
@@ -35,21 +40,34 @@ public class _02_TextUndoRedo implements KeyListener {
 		frame = new JFrame();
 		panel = new JPanel();
 		label = new JLabel();
-		 
-		label.setEnabled(true);
+		deleted = new Stack<String>();
+		
+		
+		frame.addKeyListener(this);
 		panel.add(label);
 		frame.add(panel);
 		frame.setVisible(true);
-		frame.pack();
-			
-		label.addKeyListener(this);
+		frame.setSize(250,100);
+		
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		label.setText(e.getKeyChar() + "");
-		
-		
+		String undo = "";
+		if(e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE && text.length()>0) {
+			deleted.push(text.substring(text.length()-1, text.length()));
+			System.out.println(text.substring(text.length()-1, text.length()));
+			text = text.substring(0, text.length()-1);
+			
+		} else if(e.getKeyChar() == 'z' && !deleted.isEmpty()) {
+			undo = deleted.pop();
+			text += undo;
+			
+		}else {
+			text += e.getKeyChar()+"";
+			
+		}
+		label.setText(text);
 	}
 
 	@Override
