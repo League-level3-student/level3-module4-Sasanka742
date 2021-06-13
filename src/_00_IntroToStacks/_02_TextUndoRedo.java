@@ -31,7 +31,6 @@ public class _02_TextUndoRedo implements KeyListener {
 	
 	Stack<String> deleted;
 	String text = "";
-	
 	public static void main(String[] args) {
 		_02_TextUndoRedo test = new _02_TextUndoRedo();
 		test.run();
@@ -53,26 +52,25 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		String undo = "";
-		if(e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE && text.length()>0) {
-			deleted.push(text.substring(text.length()-1, text.length()));
-			System.out.println(text.substring(text.length()-1, text.length()));
-			text = text.substring(0, text.length()-1);
-			
-		} else if(e.getKeyChar() == 'z' && !deleted.isEmpty()) {
-			undo = deleted.pop();
-			text += undo;
-			
-		}else {
-			text += e.getKeyChar()+"";
-			
-		}
-		label.setText(text);
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE && text.length()>0) {
+			deleted.push(text.substring(text.length()-1,text.length()));
+			System.out.println(text.substring(text.length()-1, text.length()));
+			text = text.substring(0, text.length()-1);
+			
+		} else if(e.getKeyChar() == 'z' && !deleted.isEmpty()) {
+			text += deleted.pop();
+			
+		} else{
+			text += e.getKeyChar()+"";
+			
+		}
+		label.setText(text);
 	}
 
 	@Override
