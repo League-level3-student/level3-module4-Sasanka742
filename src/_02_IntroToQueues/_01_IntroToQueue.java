@@ -42,18 +42,19 @@ public class _01_IntroToQueue {
         Stack<Double> stack = new Stack<Double>();
         // 2. Use a loop to add 100 random doubles between 0 and 100 to the Stack
         for(int i=0;i<100;i++) {
-        	double num = 50;
-        	while(num > 0 && num <100);{
-        		num = new Random().nextDouble();
-        	}
+        	double num = 0.0;
+        	num = (double) new Random().nextInt(100) ;
+        	
         	stack.push(num);
         }
         // 3. Create a Queue of Doubles using the ArrayDeque class
         //    Note: you have to use the capitalized Double and not double
-        ArrayDeque<Double> queue = new ArrayDeque<>();
+        ArrayDeque<Double> queue = new ArrayDeque<Double>();
         // 4. Pop off 5 elements from the Stack and add them to the Queue 
+        System.out.println("Stack Size: " + stack.size());
+        
         for(int k=0;k<5;k++) {
-        	queue.add(stack.pop());
+        	queue.push(stack.pop());
         }
         // 5. Print and remove a random number of elements, from 1 to 5 elements,
         //    from the front of the Queue. Example:
@@ -63,24 +64,26 @@ public class _01_IntroToQueue {
         for(int j=0;j<times;j++) {
         	System.out.print(" "+queue.pop());
         }
-        System.out.print("");
+        System.out.println("");
         // 6. Pop off as many elements from the stack to fill the Queue with 5
         //    elements. If there aren't enough elements in the Stack to fill the 
         //    queue, fill the queue as much as possible. 
+       
         for(int l=queue.size();l<5;l++) {
         	if(!stack.isEmpty()) {
-        		queue.add(stack.pop());
+        		queue.push(stack.pop());
         	}
         }
         
         // 7. Loop until there are no more elements in either the Stack or Queue
         //    and all the elements are printed
-        while(!queue.isEmpty() ||  !stack.isEmpty()) {
+        while(!stack.isEmpty()) {
         	 times  = new Random().nextInt(5);
              System.out.print("removing "+times+" elements from Queue:");
              for(int j=0;j<times;j++) {
              	System.out.print(" "+queue.pop());
              }
+             System.out.println("");
              
              for(int l=queue.size();l<5;l++) {
              	if(!stack.isEmpty()) {
@@ -88,5 +91,7 @@ public class _01_IntroToQueue {
              	}
              }
         }
+        System.out.println("Stack Size: " + stack.size());
+        
 	}
 }
