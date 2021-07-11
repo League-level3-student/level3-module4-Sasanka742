@@ -39,25 +39,30 @@ public class _02_BaseballTickets {
     	int sumTotalTime = 0;
     	int pos = position;
     	int item = 0;
+    	boolean finished = false;
     	
-    	while(true) {
-    		//break all when tickets bought
-    		if(pos == 0 && ticketsQueue.peek() == 0) {
-    			break;
+    	while(!finished) {
+    		
+    		sumTotalTime++;
+			
+			if(pos == 0 && ticketsQueue.peek() == 1) {
+    			finished = true; // I don't need to buy more tickets
+    		} 
+			
+
+    		item = ticketsQueue.pop(); //takes one ticket and leaves line
+    		
+			
+    		if(item > 1) {
+    			ticketsQueue.push(item-1); // previous person joins the line at back for more tickets
     		}
     		
-    		item = ticketsQueue.pop()-1;
-    		if(item >= 0) {
-    			sumTotalTime++;
-    		}
-    		ticketsQueue.push(item);
+    		pos--; //I move forward once
     		
-    		pos--;
-    		//reset
+			//reset position to back of line
     		if(pos<0) {
-    			pos = ticketsQueue.size();
+    			pos = ticketsQueue.size()-1;
     		}
-    		
     	}
         return sumTotalTime;
     }
