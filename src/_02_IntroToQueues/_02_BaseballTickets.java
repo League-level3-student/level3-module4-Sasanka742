@@ -38,23 +38,23 @@ public class _02_BaseballTickets {
         // get position in queue 
     	int sumTotalTime = 0;
     	int pos = position;
-    	int item = 0;
+    	int person = 0;
     	boolean finished = false;
     	
     	while(!finished) {
     		
-    		sumTotalTime++;
-			
+			sumTotalTime++;
+
+    	
 			if(pos == 0 && ticketsQueue.peek() == 1) {
     			finished = true; // I don't need to buy more tickets
     		} 
 			
-
-    		item = ticketsQueue.pop(); //takes one ticket and leaves line
+			person = ticketsQueue.pop(); //takes one ticket and leaves line
     		
 			
-    		if(item > 1) {
-    			ticketsQueue.push(item-1); // previous person joins the line at back for more tickets
+    		if(person > 1) {
+    			ticketsQueue.push(person-1); // previous person joins the line at back for more tickets
     		}
     		
     		pos--; //I move forward once
